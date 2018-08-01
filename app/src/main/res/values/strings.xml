@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">Sem3-Project</string>
-    <string name="cyclo">CYCLO</string>
-    <string name="description">Start your adventure</string>
+    <string name="app_name">Cyclo</string>
 </resources>
