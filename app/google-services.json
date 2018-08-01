@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "750883852663",
+    "firebase_url": "https://ciclo-f5524.firebaseio.com",
+    "project_id": "ciclo-f5524",
+    "storage_bucket": "ciclo-f5524.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750883852663:android:e3fbebec64cdef2b",
+        "android_client_info": {
+          "package_name": "com.example.amaln.sem3_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750883852663-0g3eeqlmd6fvidvsf7sk2qn48gk8ooon.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.amaln.sem3_project",
+            "certificate_hash": "2c94e9f9b18796a2ff5c3da7f88088cfdfb072b2"
+          }
+        },
+        {
+          "client_id": "750883852663-qck6442pha215fi0t8b6r3b17mrtgec0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.amaln.sem3_project",
+            "certificate_hash": "5852fdd796c59a78423332d754f4e712d3a43448"
+          }
+        },
+        {
+          "client_id": "750883852663-adr7939rv3iec1if1edhn29jnffrc0h6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgqfHAQl43sjm5cm7NnRZQM83fZHFRskQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750883852663-adr7939rv3iec1if1edhn29jnffrc0h6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
