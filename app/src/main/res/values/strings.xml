@@ -7,4 +7,6 @@
     <string name="welcome_new_user">New User?</string>
     <string name="hint_email">Email Address</string>
     <string name="hint_password">Password</string>
+    <string name="signup">New Account</string>
+    <string name="create_new_account">Create New</string>
 </resources>
