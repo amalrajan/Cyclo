@@ -3,10 +3,12 @@
     <string name="description">Start your</string>
     <string name="description2">adventure</string>
     <string name="cyclo">CYCLO</string>
-    <string name="welcome_login">Log In</string>
     <string name="welcome_new_user">New User?</string>
     <string name="hint_email">Email Address</string>
     <string name="hint_password">Password</string>
     <string name="signup">New Account</string>
-    <string name="create_new_account">Create</string>
+    <string name="Logging_in">Logging in…</string>
+    <string name="log_in">LOG IN</string>
+    <string name="creating">Creating…</string>
+    <string name="create">Create</string>
 </resources>
