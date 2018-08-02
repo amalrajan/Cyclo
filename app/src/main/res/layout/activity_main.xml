@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_view_cyclo"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:fontFamily="@font/montserrat_bold"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/text_view_start_your"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -48,11 +48,11 @@
         android:text="@string/description"
         android:textColor="@android:color/black"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="@+id/text_view_cyclo"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_cyclo" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/text_view_adventure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -64,11 +64,11 @@
         android:text="@string/description2"
         android:textColor="@android:color/white"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="@+id/text_view_cyclo"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_start_your" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/login_button_landing_page"
         android:layout_width="269dp"
         android:layout_height="57dp"
         android:layout_marginBottom="20dp"
@@ -83,7 +83,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.58"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -100,7 +100,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.893"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
