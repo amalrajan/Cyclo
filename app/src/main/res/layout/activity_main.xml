@@ -80,7 +80,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp"
-        android:text="@string/welcome_login"
+        android:text="@string/log_in"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/newuser_button_landing_page"
         app:layout_constraintEnd_toEndOf="parent"

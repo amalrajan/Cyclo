@@ -39,12 +39,12 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailEditText.getText().toString();
                 String passWord = passWordEditText.getText().toString();
-                mSignupButton.setText("Creating...");
+                mSignupButton.setText(R.string.creating);
                 if(!TextUtils.isEmpty(passWord) && !TextUtils.isEmpty(email)) {
                     signUp(email, passWord);
                 } else {
                     showSnackbar(findViewById(R.id.activity_login), "Please enter a valid email and password", Snackbar.LENGTH_LONG);
-                    mSignupButton.setText("Create");
+                    mSignupButton.setText(R.string.create);
                 }
             }
         });

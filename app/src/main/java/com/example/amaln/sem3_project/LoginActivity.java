@@ -38,12 +38,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailEditText.getText().toString();
                 String passWord = passWordEditText.getText().toString();
-                mLoginButton.setText("LOGGING IN...");
+                mLoginButton.setText(R.string.Logging_in);
                 if(!TextUtils.isEmpty(passWord) && !TextUtils.isEmpty(email)) {
                     logIn(email, passWord);
                 } else {
                     showSnackbar(findViewById(R.id.activity_login), "Please enter a valid email and password", Snackbar.LENGTH_LONG);
-                    mLoginButton.setText("LOG IN");
+                    mLoginButton.setText(R.string.log_in);
                 }
             }
         });
