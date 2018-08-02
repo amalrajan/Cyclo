@@ -5,10 +5,10 @@
     <stroke
         android:drawable="@android:color/transparent"
         android:width="1dp"
-        android:color="#f8ad1c" >
+        android:color="@color/colorWelcomeButton" >
     </stroke>
 
-    <solid android:color="#f8ad1c" />
+    <solid android:color="@color/colorWelcomeButton" />
 
     <corners
         android:bottomLeftRadius="35dp"
