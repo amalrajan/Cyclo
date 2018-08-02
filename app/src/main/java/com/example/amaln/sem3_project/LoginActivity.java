@@ -1,10 +1,12 @@
 package com.example.amaln.sem3_project;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -74,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
     private void showSnackbar(View view, String message, int duration) {
 
         final Snackbar snackbar = Snackbar.make(view, message, duration);
+
         snackbar.setAction("DISMISS", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -5,8 +5,8 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3e3b4e"
-    tools:context=".Login">
+    android:background="@android:color/white"
+    tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/text_view_login"
@@ -16,7 +16,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="@string/welcome_login"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,12 +30,14 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/entry_rounded"
         android:ems="10"
+        android:textColorHint="@color/hint_gray"
         android:fontFamily="@font/montserrat"
         android:hint="@string/hint_password"
         android:inputType="textPassword"
         android:paddingLeft="20dp"
+        android:textCursorDrawable="@drawable/cursor_color"
         android:paddingRight="20dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_email_login" />
@@ -47,6 +49,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="36dp"
+        android:textColorHint="@color/hint_gray"
         android:background="@drawable/entry_rounded"
         android:ems="10"
         android:fontFamily="@font/montserrat"
@@ -54,7 +57,8 @@
         android:inputType="textEmailAddress"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
+        android:textCursorDrawable="@drawable/cursor_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_login" />
@@ -62,10 +66,10 @@
     <Button
         android:id="@+id/login_button_login_page"
         android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="100dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginStart="60dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/button_rounded_3"
         android:fontFamily="@font/montserrat_bold"
         android:paddingBottom="10dp"
@@ -73,9 +77,9 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp"
         android:text="@string/welcome_login"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_password_login" />
 </android.support.constraint.ConstraintLayout>
