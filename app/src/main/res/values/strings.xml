@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Cyclo</string>
+    <string name="description">Start your</string>
+    <string name="description2">adventure</string>
+    <string name="cyclo">CYCLO</string>
+    <string name="welcome_login">Login</string>
 </resources>
