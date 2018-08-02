@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
-                            mLoginButton.setText("LOG IN");
+                            mLoginButton.setText(R.string.log_in);
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             showSnackbar(findViewById(R.id.activity_login), "Please enter a valid email and password", Snackbar.LENGTH_LONG);
                         }

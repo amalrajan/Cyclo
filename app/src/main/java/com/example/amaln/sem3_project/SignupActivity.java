@@ -43,7 +43,7 @@ public class SignupActivity extends AppCompatActivity {
                 if(!TextUtils.isEmpty(passWord) && !TextUtils.isEmpty(email)) {
                     signUp(email, passWord);
                 } else {
-                    showSnackbar(findViewById(R.id.activity_login), "Please enter a valid email and password", Snackbar.LENGTH_LONG);
+                    showSnackbar(findViewById(R.id.activity_signup), "Please enter a valid email and password", Snackbar.LENGTH_LONG);
                     mSignupButton.setText(R.string.create);
                 }
             }
@@ -66,7 +66,7 @@ public class SignupActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             showSnackbar(findViewById(R.id.activity_signup), "Please enter a valid email and password", Snackbar.LENGTH_LONG);
-                            mSignupButton.setText("Create");
+                            mSignupButton.setText(R.string.create);
                         }
                     }
                 });
