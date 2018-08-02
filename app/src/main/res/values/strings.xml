@@ -3,6 +3,6 @@
     <string name="description">Start your</string>
     <string name="description2">adventure</string>
     <string name="cyclo">CYCLO</string>
-    <string name="welcome_login">Login</string>
+    <string name="welcome_login">Log In</string>
     <string name="welcome_new_user">New User?</string>
 </resources>
