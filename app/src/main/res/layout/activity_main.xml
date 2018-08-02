@@ -71,6 +71,7 @@
         android:id="@+id/button"
         android:layout_width="269dp"
         android:layout_height="57dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/button_rounded"
         android:fontFamily="@font/montserrat_bold"
