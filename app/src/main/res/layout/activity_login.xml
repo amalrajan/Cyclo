@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3e3b4e"
@@ -21,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit_text_password"
+        android:id="@+id/edit_text_password_login"
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginLeft="40dp"
@@ -37,10 +38,10 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_test_email" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_email_login" />
 
     <EditText
-        android:id="@+id/edit_test_email"
+        android:id="@+id/edit_text_email_login"
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginLeft="40dp"
