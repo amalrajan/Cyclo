@@ -75,7 +75,7 @@ public class SignupActivity extends AppCompatActivity {
     private void showSnackbar(View view, String message, int duration) {
 
         final Snackbar snackbar = Snackbar.make(view, message, duration);
-        snackbar.setAction("DISMISS", new View.OnClickListener() {
+        snackbar.setAction("DISMISS", new View.OnClickListener() {//
             @Override
             public void onClick(View v) {
                 snackbar.dismiss();
