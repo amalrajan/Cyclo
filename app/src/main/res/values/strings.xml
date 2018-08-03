@@ -8,7 +8,7 @@
     <string name="hint_password">Password</string>
     <string name="signup">New Account</string>
     <string name="Logging_in">Logging in…</string>
-    <string name="log_in">LOG IN</string>
+    <string name="log_in">Log in</string>
     <string name="creating">Creating…</string>
     <string name="create">Create</string>
 </resources>
