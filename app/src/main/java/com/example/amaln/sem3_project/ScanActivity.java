@@ -27,6 +27,8 @@ public class ScanActivity extends AppCompatActivity {
     Button mOkayButton;
     TextView mAcceptPermission;
     private static final int PERMISSIONS_REQUEST = 1;
+    private static final int PERMSISSION_GRANTED = 1;
+    private static final int PERMISSION_NOT_GRANTED = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,6 @@ public class ScanActivity extends AppCompatActivity {
         mOkayButton = findViewById(R.id.button_okay);
         mAcceptPermission = findViewById(R.id.text_view_accept_permission);
         mScannerView = findViewById(R.id.scanner_view);
-        mScannerView.setVisibility(View.GONE);
         mCodeScanner = new CodeScanner(this, mScannerView);
 
         checkPermissionGrantedAndOpenScanner();
@@ -59,19 +60,13 @@ public class ScanActivity extends AppCompatActivity {
 
         final Activity activity = ScanActivity.this;
 
-        mScannerView.setVisibility(View.VISIBLE);
+        updateUI(1);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
-
-                //Toast.makeText(ScanActivity.this, result.getText(), Toast.LENGTH_LONG).show();
-
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Intent ridingIntent = new Intent(ScanActivity.this, RidingActivity.class);
+                ridingIntent.putExtra("bluetooth_address", result.getText());
+                startActivity(ridingIntent);
             }
         });
         mScannerView.setOnClickListener(new View.OnClickListener() {
@@ -87,13 +82,10 @@ public class ScanActivity extends AppCompatActivity {
         // the service, otherwise request the permission
         int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (permission == PackageManager.PERMISSION_GRANTED) {
-            mAcceptPermission.setVisibility(View.GONE);
-            mOkayButton.setVisibility(View.GONE);
-            mScannerView.setVisibility(View.VISIBLE);
+            updateUI(PERMSISSION_GRANTED);
             openScanner();
         } else {
-            mAcceptPermission.setVisibility(View.VISIBLE);
-            mOkayButton.setVisibility(View.VISIBLE);
+            updateUI(PERMISSION_NOT_GRANTED);
             mOkayButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -106,7 +98,22 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PERMISSIONS_REQUEST && grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            updateUI(PERMSISSION_GRANTED);
             openScanner();
         }
+    }
+
+    private void updateUI(int state) {
+
+        if(state == PERMSISSION_GRANTED) {
+            mAcceptPermission.setVisibility(View.GONE);
+            mOkayButton.setVisibility(View.GONE);
+            mScannerView.setVisibility(View.VISIBLE);
+        } else if(state == PERMISSION_NOT_GRANTED) {
+            mScannerView.setVisibility(View.GONE);
+            mAcceptPermission.setVisibility(View.VISIBLE);
+            mOkayButton.setVisibility(View.VISIBLE);
+        }
+
     }
 }
