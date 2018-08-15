@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
@@ -105,11 +103,11 @@ public class ScanActivity extends AppCompatActivity {
 
     private void updateUI(int state) {
 
-        if(state == PERMSISSION_GRANTED) {
+        if (state == PERMSISSION_GRANTED) {
             mAcceptPermission.setVisibility(View.GONE);
             mOkayButton.setVisibility(View.GONE);
             mScannerView.setVisibility(View.VISIBLE);
-        } else if(state == PERMISSION_NOT_GRANTED) {
+        } else if (state == PERMISSION_NOT_GRANTED) {
             mScannerView.setVisibility(View.GONE);
             mAcceptPermission.setVisibility(View.VISIBLE);
             mOkayButton.setVisibility(View.VISIBLE);

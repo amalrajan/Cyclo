@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -40,7 +39,7 @@ public class SignupActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String passWord = passWordEditText.getText().toString();
                 mSignupButton.setText(R.string.creating);
-                if(!TextUtils.isEmpty(passWord) && !TextUtils.isEmpty(email)) {
+                if (!TextUtils.isEmpty(passWord) && !TextUtils.isEmpty(email)) {
                     signUp(email, passWord);
                 } else {
                     showSnackbar(findViewById(R.id.activity_signup), "Please enter a valid email and password", Snackbar.LENGTH_LONG);
