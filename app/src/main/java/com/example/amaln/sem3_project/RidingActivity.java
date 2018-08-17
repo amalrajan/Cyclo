@@ -113,6 +113,7 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         mProgressBar = findViewById(R.id.progress_bar);
+        mProgressBar.setVisibility(View.VISIBLE);
 
         //Registering BroadCastRecievers
         IntentFilter discoverDevicesIntent = new IntentFilter(BluetoothDevice.ACTION_FOUND);
