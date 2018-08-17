@@ -2,13 +2,18 @@ package com.example.amaln.sem3_project;
 
 import android.Manifest;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,13 +25,45 @@ import com.google.zxing.Result;
 
 public class ScanActivity extends AppCompatActivity {
 
+    private final String ARDUINO_ADDRESS = "00:21:13:02:C0:24";
+
+    private static final String TAG = "ScanActivity";
     private CodeScanner mCodeScanner;
     private CodeScannerView mScannerView;
-    Button mOkayButton;
-    TextView mAcceptPermission;
+    private Button mOkayButton;
+    private TextView mAcceptPermission;
+    private BluetoothAdapter mBluetoothAdapter;
     private static final int PERMISSIONS_REQUEST = 1;
     private static final int PERMSISSION_GRANTED = 1;
     private static final int PERMISSION_NOT_GRANTED = 2;
+
+    private final BroadcastReceiver mBluetoothStateChangeReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            // When discovery finds a device
+            if (action.equals(mBluetoothAdapter.ACTION_STATE_CHANGED)) {
+                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, mBluetoothAdapter.ERROR);
+
+                switch(state){
+                    case BluetoothAdapter.STATE_OFF:
+                        Log.d(TAG, "onReceive: STATE OFF");
+                        mScannerView.setVisibility(View.GONE);
+                        enableBluetooth();
+                        break;
+                    case BluetoothAdapter.STATE_ON:
+                        checkPermissionGrantedAndOpenScanner();
+                        Log.d(TAG, "mBroadcastReceiver1: STATE ON");
+                        break;
+                }
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBluetoothStateChangeReceiver);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +73,20 @@ public class ScanActivity extends AppCompatActivity {
         mOkayButton = findViewById(R.id.button_okay);
         mAcceptPermission = findViewById(R.id.text_view_accept_permission);
         mScannerView = findViewById(R.id.scanner_view);
+        mScannerView.setVisibility(View.GONE);
         mCodeScanner = new CodeScanner(this, mScannerView);
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        checkPermissionGrantedAndOpenScanner();
+        IntentFilter bluetoothStateIntentFilter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        registerReceiver(mBluetoothStateChangeReceiver, bluetoothStateIntentFilter);
 
+        if(!mBluetoothAdapter.isEnabled()){
+            enableBluetooth();
+            mScannerView.setVisibility(View.GONE);
+        } else {
+            mScannerView.setVisibility(View.VISIBLE);
+            checkPermissionGrantedAndOpenScanner();
+        }
     }
 
     @Override
@@ -63,7 +110,7 @@ public class ScanActivity extends AppCompatActivity {
             @Override
             public void onDecoded(@NonNull final Result result) {
                 Intent ridingIntent = new Intent(ScanActivity.this, RidingActivity.class);
-                ridingIntent.putExtra("bluetooth_address", result.getText());
+                ridingIntent.putExtra("bluetooth_address", ARDUINO_ADDRESS);
                 startActivity(ridingIntent);
             }
         });
@@ -91,6 +138,11 @@ public class ScanActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void enableBluetooth() {
+        Intent enableBTIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        startActivity(enableBTIntent);
     }
 
     @Override
