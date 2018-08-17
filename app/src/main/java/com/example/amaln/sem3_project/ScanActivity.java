@@ -25,7 +25,7 @@ import com.google.zxing.Result;
 
 public class ScanActivity extends AppCompatActivity {
 
-    private final String ARDUINO_ADDRESS = "00:21:13:02:C0:24";
+
 
     private static final String TAG = "ScanActivity";
     private CodeScanner mCodeScanner;
@@ -33,16 +33,14 @@ public class ScanActivity extends AppCompatActivity {
     private Button mOkayButton;
     private TextView mAcceptPermission;
     private BluetoothAdapter mBluetoothAdapter;
-    private static final int PERMISSIONS_REQUEST = 1;
-    private static final int PERMSISSION_GRANTED = 1;
-    private static final int PERMISSION_NOT_GRANTED = 2;
+
 
     private final BroadcastReceiver mBluetoothStateChangeReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             // When discovery finds a device
-            if (action.equals(mBluetoothAdapter.ACTION_STATE_CHANGED)) {
-                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, mBluetoothAdapter.ERROR);
+            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
                 switch(state){
                     case BluetoothAdapter.STATE_OFF:
@@ -110,7 +108,7 @@ public class ScanActivity extends AppCompatActivity {
             @Override
             public void onDecoded(@NonNull final Result result) {
                 Intent ridingIntent = new Intent(ScanActivity.this, RidingActivity.class);
-                ridingIntent.putExtra("bluetooth_address", ARDUINO_ADDRESS);
+                ridingIntent.putExtra("bluetooth_address", Constants.ARDUINO_ADDRESS);
                 startActivity(ridingIntent);
             }
         });
@@ -127,14 +125,14 @@ public class ScanActivity extends AppCompatActivity {
         // the service, otherwise request the permission
         int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (permission == PackageManager.PERMISSION_GRANTED) {
-            updateUI(PERMSISSION_GRANTED);
+            updateUI(Constants.PERMSISSION_GRANTED);
             openScanner();
         } else {
-            updateUI(PERMISSION_NOT_GRANTED);
+            updateUI(Constants.PERMISSION_NOT_GRANTED);
             mOkayButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ActivityCompat.requestPermissions(ScanActivity.this, new String[]{Manifest.permission.CAMERA}, PERMISSIONS_REQUEST);
+                    ActivityCompat.requestPermissions(ScanActivity.this, new String[]{Manifest.permission.CAMERA}, Constants.PERMISSIONS_REQUEST);
                 }
             });
         }
@@ -147,19 +145,18 @@ public class ScanActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == PERMISSIONS_REQUEST && grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            updateUI(PERMSISSION_GRANTED);
+        if (requestCode == Constants.PERMISSIONS_REQUEST && grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            updateUI(Constants.PERMSISSION_GRANTED);
             openScanner();
         }
     }
 
     private void updateUI(int state) {
-
-        if (state == PERMSISSION_GRANTED) {
+        if (state == Constants.PERMSISSION_GRANTED) {
             mAcceptPermission.setVisibility(View.GONE);
             mOkayButton.setVisibility(View.GONE);
             mScannerView.setVisibility(View.VISIBLE);
-        } else if (state == PERMISSION_NOT_GRANTED) {
+        } else if (state == Constants.PERMISSION_NOT_GRANTED) {
             mScannerView.setVisibility(View.GONE);
             mAcceptPermission.setVisibility(View.VISIBLE);
             mOkayButton.setVisibility(View.VISIBLE);
