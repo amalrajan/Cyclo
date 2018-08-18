@@ -1,8 +1,6 @@
 package com.example.amaln.sem3_project;
 
-import android.app.usage.ConfigurationStats;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.Loader;
 import android.support.v4.app.LoaderManager;
