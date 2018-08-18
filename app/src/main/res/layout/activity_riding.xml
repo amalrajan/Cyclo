@@ -138,15 +138,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/floating_action_riding"
+        android:layout_width="54dp"
+        android:layout_height="53dp"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:color/holo_green_dark" />
+        app:srcCompat="@drawable/floating_action_icon" />
 
     <ImageView
         android:id="@+id/image_profile"
@@ -159,7 +159,7 @@
         app:srcCompat="@drawable/person_avatar" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/text_view_current_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"

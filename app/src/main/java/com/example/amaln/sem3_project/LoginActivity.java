@@ -37,6 +37,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailEditText.getText().toString();
                 String passWord = passWordEditText.getText().toString();
+
+                Constants.USER_EMAIL = email;
+
                 mLoginButton.setText(R.string.Logging_in);
                 mLoginButton.setTextSize(15);
                 if (!TextUtils.isEmpty(passWord) && !TextUtils.isEmpty(email)) {

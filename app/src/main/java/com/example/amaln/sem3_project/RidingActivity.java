@@ -2,6 +2,7 @@ package com.example.amaln.sem3_project;
 
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.Loader;
 import android.support.v4.app.LoaderManager;
 import android.bluetooth.BluetoothAdapter;
@@ -42,10 +43,13 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
     private TextView timeCounter;
     private TextView totalCost;
     private TextView totalDistance;
+    private TextView currentUserName;
 
     private int seconds = 0;
     private double costPerSecond = 0.002777778;
     private int minimumCost = 5;
+
+    private FloatingActionButton floatingActionButton;
 
     /**
      * Broadcast Receiver that detects bond state changes (Pairing status changes)
@@ -115,6 +119,9 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riding);
+
+        currentUserName = findViewById(R.id.text_view_current_user);
+        currentUserName.setText(Constants.USER_EMAIL);
 
         initiateRide();
 
@@ -227,6 +234,14 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
 
     public void initiateRide() {
         Log.e("Reached here", "Success.");
+
+        floatingActionButton = findViewById(R.id.floating_action_riding);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("Floating Action", "Clicked.");
+            }
+        });
 
         timeCounter = findViewById(R.id.text_view_time_taken);
         totalCost = findViewById(R.id.text_view_cost);

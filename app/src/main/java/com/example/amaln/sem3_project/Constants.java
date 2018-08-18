@@ -13,4 +13,6 @@ public class Constants {
     public static final int PERMISSION_NOT_GRANTED = 2;
 
     public static final String ARDUINO_ADDRESS = "00:21:13:02:C0:24";
+
+    public static String USER_EMAIL;
 }
