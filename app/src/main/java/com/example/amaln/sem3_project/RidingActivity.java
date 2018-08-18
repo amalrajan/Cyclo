@@ -1,5 +1,6 @@
 package com.example.amaln.sem3_project;
 
+import android.app.usage.ConfigurationStats;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -46,10 +48,12 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
     private TextView currentUserName;
 
     private int seconds = 0;
+    private int totalSeconds = 0;
     private double costPerSecond = 0.002777778;
     private int minimumCost = 5;
 
     private FloatingActionButton floatingActionButton;
+    private Button endRideButton;
 
     /**
      * Broadcast Receiver that detects bond state changes (Pairing status changes)
@@ -243,6 +247,22 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
+        endRideButton = findViewById(R.id.button_end_ride);
+        endRideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Constants.RIDE_DURATION = totalSeconds;
+                // Constants.RIDE_DISTANCE = totalDistanceCount;
+                Constants.RIDE_COST = (int) (totalSeconds * costPerSecond);
+
+
+                Intent intent = new Intent(RidingActivity.this, ScanActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
         timeCounter = findViewById(R.id.text_view_time_taken);
         totalCost = findViewById(R.id.text_view_cost);
         totalDistance = findViewById(R.id.text_view_distance);
@@ -259,9 +279,10 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
                 String time = String.format("%d:%02d:%02d", hours, minutes, secs);
 
                 timeCounter.setText(time);
-                totalCost.setText(String.format("%.2f", (minimumCost + (costPerSecond * (hours * 3600 + minutes * 60 + secs)))));
+                totalCost.setText(String.format("%.2f", (minimumCost + (costPerSecond * totalSeconds))));
 
                 seconds++;
+                totalSeconds++;
 
                 handler.postDelayed(this, 1000);
             }

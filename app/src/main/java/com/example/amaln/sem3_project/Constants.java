@@ -14,5 +14,11 @@ public class Constants {
 
     public static final String ARDUINO_ADDRESS = "00:21:13:02:C0:24";
 
+    // USER INFO
     public static String USER_EMAIL;
+
+    // RIDE INFO
+    public static int RIDE_DURATION;
+    public static int RIDE_DISTANCE;
+    public static int RIDE_COST;
 }
