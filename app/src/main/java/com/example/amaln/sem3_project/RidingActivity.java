@@ -274,7 +274,7 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
                 int minutes = (seconds % 3600) / 60;
                 int secs = seconds % 60;
 
-                String time = String.format("%d:%02d:%02d", hours, minutes, secs);
+                String time = String.format("%02d:%02d:%02d", hours, minutes, secs);
 
                 timeCounter.setText(time);
                 totalCost.setText(String.format("%.2f", (minimumCost + (costPerSecond * totalSeconds))));
