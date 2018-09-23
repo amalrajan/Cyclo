@@ -15,12 +15,18 @@ public class BluetoothConnectLoader extends android.support.v4.content.AsyncTask
      * Input format: <password(10)>/<instruction>~
      */
 
+
+    //TODO: Prevent user from going back to scan activity if they are riding
+
     private final String TAG = "BluetoothConnectLoader";
     private final String BLUETOOTH_PASSWORD = "123456789";
 
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothSocket mBTSocket;
-    private boolean mIsBTConnected;
+
+    //this value is true until the cycle is returned
+    private boolean mIsRiding;
+
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     private String mAddress;
@@ -29,21 +35,22 @@ public class BluetoothConnectLoader extends android.support.v4.content.AsyncTask
         super(context);
         mAddress = address;
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        mIsBTConnected = false;
+
+        //TODO: Add persistence so state(riding, not riding) is maintained even if app is restarted
+        mIsRiding = false;
     }
 
     @Override
     public String loadInBackground() {
-        boolean connectSuccess = true;
 
         byte[] buffer = new byte[1024];
         int begin = 0;
         int bytes = 0;
 
         try {
-            if (mBTSocket == null || !mIsBTConnected) {
+            if (mBTSocket == null && !mIsRiding) {
                 BluetoothDevice bluetoothDevice = mBluetoothAdapter.getRemoteDevice(mAddress);//connects to the device's mAddress and checks if it's available
-                mBTSocket = bluetoothDevice.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
+                mBTSocket = bluetoothDevice.createRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
                 mBluetoothAdapter.cancelDiscovery();
                 mBTSocket.connect();//start connection
 
@@ -59,9 +66,12 @@ public class BluetoothConnectLoader extends android.support.v4.content.AsyncTask
                                 String readInput = new String(buffer,0,bytes);
                                 if(readInput.equals((Constants.SUCCESS+"~"))) {
                                     Log.e(TAG,"UNLOCK SUCCESS");
+                                    resetConnection();
+                                    mIsRiding = true;
                                     return Constants.SUCCESS;
                                 } else if(readInput.equals(Constants.WRONG_PASSWORD + "~")){
                                     Log.e(TAG,"WORNG PASSWORD");
+                                    resetConnection();
                                     return Constants.WRONG_PASSWORD;
                                 }
                             }
@@ -73,13 +83,26 @@ public class BluetoothConnectLoader extends android.support.v4.content.AsyncTask
                 }
             }
         } catch (IOException e) {
-            Log.e(TAG,"OUTER");
             e.printStackTrace();
         }
-        return Constants.ERROR;
+        resetConnection();
+        if(mIsRiding) {
+            return Constants.RIDING;
+        } else {
+            return Constants.ERROR;
+        }
     }
     @Override
     protected void onStartLoading() {
         forceLoad();
+    }
+
+
+    private void resetConnection() {
+        if (mBTSocket != null) {
+            try {mBTSocket.close();} catch (Exception e) {}
+            mBTSocket = null;
+        }
+
     }
 }

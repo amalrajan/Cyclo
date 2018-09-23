@@ -1,7 +1,5 @@
 package com.example.amaln.sem3_project;
 
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.Loader;
 import android.support.v4.app.LoaderManager;
 import android.bluetooth.BluetoothAdapter;
@@ -16,9 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 
 import java.util.Set;
@@ -40,18 +36,7 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
 
     ProgressBar mProgressBar;
 
-    private TextView timeCounter;
-    private TextView totalCost;
-    private TextView totalDistance;
-    private TextView currentUserName;
 
-    private int seconds = 0;
-    private int totalSeconds = 0;
-    private double costPerSecond = 0.002777778;
-    private int minimumCost = 5;
-
-    private FloatingActionButton floatingActionButton;
-    private Button endRideButton;
 
     /**
      * Broadcast Receiver that detects bond state changes (Pairing status changes)
@@ -61,14 +46,14 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
 
-            if (action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
+            if(action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)){
                 BluetoothDevice mDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 //3 cases:
                 //case1: bonded already
-                if (mDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
+                if (mDevice.getBondState() == BluetoothDevice.BOND_BONDED){
                     Log.e(TAG, "BroadcastReceiver: BOND_BONDED.");
                     //inside BroadcastReceiver4
-                    getSupportLoaderManager().restartLoader(Constants.BLUETOOTH_CONNECT_LOADER_ID, null, RidingActivity.this);
+                    getSupportLoaderManager().restartLoader(Constants.BLUETOOTH_CONNECT_LOADER_ID,null,RidingActivity.this);
                 }
                 //case2: creating a bone
                 if (mDevice.getBondState() == BluetoothDevice.BOND_BONDING) {
@@ -85,15 +70,16 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
     private BroadcastReceiver mPairingRequestReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e(TAG, "BRAODCAST REICEVER");
+            Log.e(TAG,"BRAODCAST REICEVER");
             String action = intent.getAction();
-            if (BluetoothDevice.ACTION_PAIRING_REQUEST.equals(action)) {
+            if(BluetoothDevice.ACTION_PAIRING_REQUEST.equals(action))
+            {
                 BluetoothDevice bluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                Log.e(TAG, "Auto-entering pin: " + "1234");
+                Log.e(TAG,"Auto-entering pin: " + "1234");
                 bluetoothDevice.setPin(Constants.BLUETOOTH_PIN.getBytes());
                 abortBroadcast();
 
-                Log.e(TAG, "pin entered and request sent...");
+                Log.e(TAG,"pin entered and request sent...");
                 mBluetoothAdapter.cancelDiscovery();
             }
         }
@@ -106,10 +92,10 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
             final String action = intent.getAction();
             Log.e(TAG, "onReceive: ACTION FOUND.");
 
-            if (action.equals(BluetoothDevice.ACTION_FOUND)) {
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            if (action.equals(BluetoothDevice.ACTION_FOUND)){
+                BluetoothDevice device = intent.getParcelableExtra (BluetoothDevice.EXTRA_DEVICE);
                 Log.e(TAG, "onReceive: " + device.getName() + ": " + device.getAddress());
-                if (device.getAddress().equals(mAddress)) {
+                if(device.getAddress().equals(mAddress)) {
                     Log.e(TAG, "FOUND THE ARDUINO   " + device.getAddress());
                     device.createBond();
                 }
@@ -122,17 +108,12 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riding);
 
-        currentUserName = findViewById(R.id.text_view_current_user);
-        currentUserName.setText(Constants.USER_EMAIL);
-
-        initiateRide();
-
         mAddress = getIntent().getStringExtra("bluetooth_address");
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         mProgressBar = findViewById(R.id.progress_bar);
-        mProgressBar.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.VISIBLE);
 
         //Registering BroadCastRecievers
         IntentFilter discoverDevicesIntent = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -140,27 +121,31 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
 
         IntentFilter autoPairDeviceIntent = new IntentFilter(BluetoothDevice.ACTION_PAIRING_REQUEST);
         autoPairDeviceIntent.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
-        registerReceiver(mPairingRequestReceiver, autoPairDeviceIntent);
+        registerReceiver(mPairingRequestReceiver,autoPairDeviceIntent);
 
         IntentFilter bondStateFilter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         registerReceiver(mBondStateReceiver, bondStateFilter);
 
 
-        if (!checkPairedDevices()) {
+        startBT();
+    }
+
+    private void startBT() {
+        if(!checkPairedDevices()) {
             Log.e(TAG, "NOT YET PAIRED, TURNING ON DISCOVERY");
             enableDiscoverable();
             discoverDevices();
         } else {
-            Log.e(TAG, "ALREADY PAIRED");
-            getSupportLoaderManager().restartLoader(Constants.BLUETOOTH_CONNECT_LOADER_ID, null, this);
+            Log.e(TAG,"ALREADY PAIRED");
+            getSupportLoaderManager().restartLoader(Constants.BLUETOOTH_CONNECT_LOADER_ID,null,this);
         }
     }
 
     private boolean checkPairedDevices() {
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
-        for (BluetoothDevice device : pairedDevices) {
-            if (device.getAddress().equals(mAddress)) {
+        for(BluetoothDevice device : pairedDevices) {
+            if(device.getAddress().equals(mAddress)) {
                 return true;
             }
         }
@@ -178,12 +163,12 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
     public void discoverDevices() {
         Log.e(TAG, "btnDiscover: Looking for unpaired devices.");
 
-        if (mBluetoothAdapter.isDiscovering()) {
+        if(mBluetoothAdapter.isDiscovering()){
             mBluetoothAdapter.cancelDiscovery();
             Log.e(TAG, "btnDiscover: Canceling discovery.");
             mBluetoothAdapter.startDiscovery();
         }
-        if (!mBluetoothAdapter.isDiscovering()) {
+        if(!mBluetoothAdapter.isDiscovering()){
             mBluetoothAdapter.startDiscovery();
         }
     }
@@ -203,7 +188,9 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
         snackbar.setAction("TRY AGAIN", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportLoaderManager().restartLoader(Constants.BLUETOOTH_CONNECT_LOADER_ID, null, RidingActivity.this);
+                startBT();
+                snackbar.dismiss();
+                updateUI(Constants.ERROR);
             }
         });
         snackbar.show();
@@ -215,76 +202,27 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     @Override
-    public void onLoadFinished(@NonNull android.support.v4.content.Loader<String> loader, String data) {
-        Log.e(TAG, data);
-        if (data.equals(Constants.SUCCESS)) {
-            mProgressBar.setVisibility(View.GONE);
-        } else if (data.equals(Constants.ERROR)) {
-            showSnackbar(findViewById(R.id.activity_riding), "Unable to connect, please try again", Snackbar.LENGTH_INDEFINITE);
-        }
+    public void onLoadFinished(@NonNull Loader<String> loader, String state) {
+        Log.e(TAG,state);
+        updateUI(state);
 
+    }
+
+    //TODO: remove snackbars and use try again button and textview
+    private void updateUI(String state) {
+        if(state.equals(Constants.SUCCESS)) {
+            mProgressBar.setVisibility(View.GONE );
+            showSnackbar(findViewById(R.id.activity_riding),"Connect succes", Snackbar.LENGTH_SHORT);
+        }
+        else if(state.equals(Constants.ERROR)) {
+            mProgressBar.setVisibility(View.VISIBLE);
+            showSnackbar(findViewById(R.id.activity_riding),"Unable to connect, please try again", Snackbar.LENGTH_INDEFINITE);
+        }
     }
 
     @Override
     public void onLoaderReset(@NonNull android.support.v4.content.Loader<String> loader) {
-
-    }
-
-    /*
-    InitiateRide: Starts the stopwatch, and displays the dashboard.
-     */
-
-    public void initiateRide() {
-        Log.e("Reached here", "Success.");
-
-        floatingActionButton = findViewById(R.id.floating_action_riding);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("Floating Action", "Clicked.");
-            }
-        });
-
-        endRideButton = findViewById(R.id.button_end_ride);
-        endRideButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Constants.RIDE_DURATION = totalSeconds;
-                // Constants.RIDE_DISTANCE = totalDistanceCount;
-                Constants.RIDE_COST = (int) (totalSeconds * costPerSecond);
-
-
-                Intent intent = new Intent(RidingActivity.this, ScanActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
-
-        timeCounter = findViewById(R.id.text_view_time_taken);
-        totalCost = findViewById(R.id.text_view_cost);
-        totalDistance = findViewById(R.id.text_view_distance);
-
-        final Handler handler = new Handler();
-
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                int hours = seconds / 3600;
-                int minutes = (seconds % 3600) / 60;
-                int secs = seconds % 60;
-
-                String time = String.format("%02d:%02d:%02d", hours, minutes, secs);
-
-                timeCounter.setText(time);
-                totalCost.setText(String.format("%.2f", (minimumCost + (costPerSecond * totalSeconds))));
-
-                seconds++;
-                totalSeconds++;
-
-                handler.postDelayed(this, 1000);
-            }
-        });
+        Log.e(TAG,"RESET");
     }
 }
 

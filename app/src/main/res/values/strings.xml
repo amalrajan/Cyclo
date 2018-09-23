@@ -11,12 +11,9 @@
     <string name="log_in">Log in</string>
     <string name="creating">Creating…</string>
     <string name="create">Create</string>
-    <string name="time_taken">DURATION</string>
-    <string name="total_cost">COST</string>
-    <string name="total_distance">DISTANCE COVERED</string>
+    <string name="time_taken">TIME TAKEN</string>
+    <string name="total_cost">TOTAL COST</string>
+    <string name="total_distance">TOTAL DISTANCE</string>
     <string name="default_zero">0.00</string>
     <string name="defaut_time_zero">00:00:00</string>
-    <string name="rupees_symbol">\u20B9</string>
-    <string name="end_ride">End Ride</string>
-    <string name="dashboard_username">Unknown User</string>
 </resources>

@@ -125,7 +125,7 @@ public class ScanActivity extends AppCompatActivity {
         // the service, otherwise request the permission
         int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (permission == PackageManager.PERMISSION_GRANTED) {
-            updateUI(Constants.PERMSISSION_GRANTED);
+            updateUI(Constants.PERMISSION_GRANTED);
             openScanner();
         } else {
             updateUI(Constants.PERMISSION_NOT_GRANTED);
@@ -146,13 +146,13 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == Constants.PERMISSIONS_REQUEST && grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            updateUI(Constants.PERMSISSION_GRANTED);
+            updateUI(Constants.PERMISSION_GRANTED);
             openScanner();
         }
     }
 
     private void updateUI(int state) {
-        if (state == Constants.PERMSISSION_GRANTED) {
+        if (state == Constants.PERMISSION_GRANTED) {
             mAcceptPermission.setVisibility(View.GONE);
             mOkayButton.setVisibility(View.GONE);
             mScannerView.setVisibility(View.VISIBLE);
