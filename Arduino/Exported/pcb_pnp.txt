@@ -1,0 +1,23 @@
+*Pick And Place List
+*Company=
+*Author=
+*eMail=
+*
+*Project=pcb
+*Date=15:56:07
+*CreatedBy=Fritzing 0.9.3b.04.19.5c895d327c44a3114e5fcc9d8260daf0cbb52806
+*
+*
+*Coordinates in mm, always center of component
+*Origin 0/0=Lower left corner of PCB
+*Rotation in degree (0-360, math. pos.)
+*
+*No;Value;Package;X;Y;Rotation;Side;Name
+1;;dip;24.8635;-28.0011;0;Bottom;U1
+2;;;40.1035;-27.3661;90;Bottom;Part2
+3;20µF;0805 [SMD, multilayer];5.81346;-9.97605;90;Top;C1
+4;20µF;0805 [SMD, multilayer];3.27346;-4.89605;90;Top;C2
+5;;THT;13.4327;-6.32549;90;Bottom;XTAL1
+6;5V;;9.62338;-28.2261;90;Bottom;Part3
+7;;;23.5935;-6.41106;90;Bottom;J1
+8;100 nF;0603 [SMD, multilayer];14.2834;-44.5111;180;Top;C3
