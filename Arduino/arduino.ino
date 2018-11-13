@@ -16,6 +16,9 @@ String UNLOCK_INSTRUCTION = "unlock_instruction";
 String LOCK_INSTRUCTION = "lock_instruction";
 String CHANGE_PASSWORD_INSTRUCTION = "change_password_instruction";
 
+/*
+     * Input format: <password(10)>/<instruction>~
+*/
 //Variable for storing received readInput
 String readInput = "";    
 char bytes;
