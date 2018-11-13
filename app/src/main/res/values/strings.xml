@@ -16,4 +16,5 @@
     <string name="total_distance">TOTAL DISTANCE</string>
     <string name="default_zero">0.00</string>
     <string name="defaut_time_zero">00:00:00</string>
+    <string name="end_ride">End Ride</string>
 </resources>
