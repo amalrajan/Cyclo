@@ -1,5 +1,8 @@
 package com.example.amaln.sem3_project;
 
+import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
+import android.os.SystemClock;
 import android.support.v4.content.Loader;
 import android.support.v4.app.LoaderManager;
 import android.bluetooth.BluetoothAdapter;
@@ -14,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.ProgressBar;
 
 
@@ -35,8 +39,12 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     ProgressBar mProgressBar;
-
-
+    private TextView timeCounter;
+    private TextView totalCost;
+    private TextView totalDistance;
+    private int seconds = 0;
+    private double costPerSecond = 0.002777778;
+    private int minimumCost = 5;
 
     /**
      * Broadcast Receiver that detects bond state changes (Pairing status changes)
@@ -107,6 +115,8 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riding);
+
+        initiateRide();
 
         mAddress = getIntent().getStringExtra("bluetooth_address");
 
@@ -224,5 +234,27 @@ public class RidingActivity extends AppCompatActivity implements LoaderManager.L
     public void onLoaderReset(@NonNull android.support.v4.content.Loader<String> loader) {
         Log.e(TAG,"RESET");
     }
+
+    public void initiateRide() {
+        Log.e("Reached here", "Success.");
+        timeCounter = findViewById(R.id.text_view_time_taken);
+        totalCost = findViewById(R.id.text_view_cost);
+        totalDistance = findViewById(R.id.text_view_distance);
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                int hours = seconds / 3600;
+                int minutes = (seconds % 3600) / 60;
+                int secs = seconds % 60;
+                String time = String.format("%d:%02d:%02d", hours, minutes, secs);
+                timeCounter.setText(time);
+                totalCost.setText(String.format("%.2f", (minimumCost + (costPerSecond * (hours * 3600 + minutes * 60 + secs)))));
+                seconds++;
+                handler.postDelayed(this, 1000);
+            }
+        });
+    }
 }
+
 

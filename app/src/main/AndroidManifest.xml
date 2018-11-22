@@ -21,7 +21,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,7 +29,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".ScanActivity" />
-        <activity android:name=".RidingActivity"></activity>
+        <activity android:name=".RidingActivity" />
     </application>
 
 </manifest>

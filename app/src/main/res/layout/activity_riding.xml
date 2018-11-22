@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_view_time_taken"
         android:layout_width="217dp"
         android:layout_height="100dp"
         android:layout_marginEnd="8dp"
@@ -53,10 +53,10 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_time_taken" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/text_view_cost"
         android:layout_width="72dp"
         android:layout_height="35dp"
         android:layout_marginStart="52dp"
@@ -79,10 +79,10 @@
         android:textColor="@android:color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_cost" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/text_view_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
@@ -103,7 +103,7 @@
         android:text="@string/total_distance"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_distance" />
 
     <Button
         android:id="@+id/button"
